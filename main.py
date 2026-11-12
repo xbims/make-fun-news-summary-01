@@ -39,6 +39,10 @@ SUMMARY = (
 
 
 def main() -> None:
+    # The bounty requires 1 to 2,000 characters; fail loudly instead of
+    # writing an entry the gate would reject.
+    if not 1 <= len(SUMMARY) <= 2000:
+        raise ValueError(f"summary is {len(SUMMARY)} characters, expected 1-2000")
     output_path = Path("/output/entry.txt")
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(SUMMARY, encoding="utf-8")
